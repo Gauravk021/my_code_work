@@ -1,5 +1,16 @@
 # my_code_work
-My coding practise repo.
-<br>
-Coder - Gaurav K (Wipro)
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/test
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
+
+server:
+  ssl:
+    enabled: false
+
+policy:
+  service:
+    enabled: false
 
