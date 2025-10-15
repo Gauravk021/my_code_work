@@ -1,1 +1,1 @@
--Djavax.net.ssl.trustStore=C:\Workspace1\luna-services\certs\lunadb.jks -Djavax.net.ssl.trustStorePassword=VxRrE0_304_2mfQf7
+& "$env:JAVA_HOME\bin\keytool.exe" -list -v -keystore "C:\Workspace1\luna-services\certs\lunadb.jks"
