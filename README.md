@@ -1,1 +1,4 @@
-& "$env:JAVA_HOME\bin\keytool.exe" -list -v -keystore "C:\Workspace1\luna-services\certs\truststore.jks" -storepass "VxRrE0_304_2mfQf7"
+-Dspring.profiles.active=local
+-Djavax.net.ssl.trustStore=C:\Workspace1\luna-services\certs\truststore.jks
+-Djavax.net.ssl.trustStorePassword=VxRrE0_304_2mfQf7
+-Djavax.net.ssl.trustStoreType=JKS
