@@ -1,11 +1,7 @@
-& "$env:JAVA_HOME\bin\keytool.exe" -importcert -trustcacerts `
--alias ejdev-ca-root `
--file "C:\Workspace1\luna-services\certs\ca-chain-inclroot.crt" `
--keystore "C:\Workspace1\luna-services\certs\truststore.jks" `
--storepass "VxRrE0_304_2mfQf7" -noprompt
-
-
-
-& "$env:JAVA_HOME\bin\keytool.exe" -list -v -keystore "C:\Workspace1\luna-services\certs\truststore.jks"
-
-
+-Dspring.profiles.active=local
+-Djavax.net.ssl.trustStore=C:\Workspace1\luna-services\certs\truststore.jks
+-Djavax.net.ssl.trustStorePassword=VxRrE0_304_2mfQf7
+-Djavax.net.ssl.trustStoreType=PKCS12
+-Djavax.net.ssl.keyStore=C:\Workspace1\luna-services\certs\lunadb.pfx
+-Djavax.net.ssl.keyStorePassword=VxRrE0_304_2mfQf7
+-Djavax.net.ssl.keyStoreType=PKCS12
