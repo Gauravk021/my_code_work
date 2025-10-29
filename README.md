@@ -1,27 +1,26 @@
-@PostMapping("/get-insights-by-faNumber-relationshipID")
-public List<DataInsights> getAllInsightsByFaNumberAndRelationshipID(
-    @Valid @RequestParam(name = "faNumber") long faNumber,
-    @Valid @RequestParam(name = "relationshipID") long relationshipID,
+@Operation(summary = "Get Insights by RelationshipID", description = "Returns list of data insights based on provided relationshipID")
+@PostMapping("/get-insights-by-relationshipID")
+public List<DataInsights> getInsightsByRelationshipID(
+    @Valid @RequestParam(name = "relationshipID") Long relationshipID,
     HttpServletRequest request) throws Exception {
 
     List<DataInsights> insights = null;
-    final String methodName = "getAllInsightsByFaNumberAndRelationshipID";
-    String userId = extractUserId(request); // ✅ new helper you created
-    Long faId = faNumber;
+    final String methodName = "getInsightsByRelationshipID";
+    String userId = extractUserId(request);
+    Long faId = null; // this endpoint doesn't have faNumber
 
     try {
-        // 🔹 REQUEST log
+        // REQUEST log
         log.info("LunaPanel request: method={}, faId={}, userId={}, relationshipId={}",
                  methodName, faId, userId, relationshipID);
 
-        insights = dataInsightsService.findAllDataInsightsByFaNumberAndRelationshipID(faNumber, relationshipID);
+        insights = dataInsightsService.findInsightsByRelationshipID(relationshipID);
 
-        // 🔹 SUCCESS log
+        // SUCCESS log
         log.info("LunaPanel success: method={}, faId={}, userId={}, relationshipId={}, resultCount={}",
                  methodName, faId, userId, relationshipID, (insights != null ? insights.size() : 0));
-
     } catch (Exception e) {
-        // 🔹 FAILURE log
+        // FAILURE log
         log.error("LunaPanel failed: method={}, faId={}, userId={}, relationshipId={}",
                   methodName, faId, userId, relationshipID, e);
         handleCommonException(request, e);
