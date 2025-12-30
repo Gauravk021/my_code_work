@@ -1,33 +1,12 @@
-plugins {
-    id 'java'
-    id 'org.springframework.boot' version '3.3.5'
-    id 'io.spring.dependency-management' version '1.1.6'
-}
+package org.example;
 
-group = 'org.example'
-version = '0.0.1-SNAPSHOT'
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+@SpringBootApplication
+public class DatabricksPocApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(DatabricksPocApplication.class, args);
     }
-}
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-
-    // Spring Boot Web (REST APIs)
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-
-    // JDBC support
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-}
-
-tasks.named('test') {
-    useJUnitPlatform()
 }
