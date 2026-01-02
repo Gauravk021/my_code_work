@@ -1,12 +1,6 @@
-package org.example;
-
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-@SpringBootApplication
-public class DatabricksPocApplication {
-
-    public static void main(String[] args) {
-        SpringApplication.run(DatabricksPocApplication.class, args);
-    }
-}
+@NotBlank(message = "ruleParameter is required")
+@Pattern(
+    regexp = "^[a-zA-Z0-9_-]+$",
+    message = "ruleParameter must contain only letters, numbers, _ or -"
+)
+private String ruleParameter;
