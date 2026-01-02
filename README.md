@@ -5,7 +5,7 @@ public ResponseEntity<ResponseStructure> createInsightRuleDrools(
 
     logger.info("Inside createInsightRuleDrools()");
 
-    // ✅ STEP 2.3.1 – Validation check
+    // ✅ STEP 1: Validation check
     if (bindingResult.hasErrors()) {
         String errorMessage = bindingResult.getFieldErrors()
                 .stream()
@@ -17,14 +17,27 @@ public ResponseEntity<ResponseStructure> createInsightRuleDrools(
         );
     }
 
-    // ✅ STEP 2.3.2 – Call service only if validation passed
-    insightsRulesService.createInsightRuleDrools(rulesRequest);
+    // ✅ STEP 2: Call service only if validation passed
+    try {
+        insightsRulesService.createInsightRuleDrools(rulesRequest);
 
-    return ResponseEntity.ok(
-            new ResponseStructure(
-                    "success",
-                    200,
-                    "Drool Insight rule has been created successfully"
-            )
-    );
+        return ResponseEntity.ok(
+                new ResponseStructure(
+                        "success",
+                        200,
+                        "Drool Insight rule has been created successfully"
+                )
+        );
+
+    } catch (IOException e) {
+        logger.error("Error generating DRL file", e);
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new ResponseStructure(
+                        "Error",
+                        500,
+                        "Error generating DRL file"
+                )
+        );
+    }
 }
