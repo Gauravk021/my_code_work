@@ -1,6 +1,6 @@
-@NotBlank(message = "ruleParameter is required")
+@NotBlank(message = "ruleValue is required")
 @Pattern(
-    regexp = "^[a-zA-Z0-9_-]+$",
-    message = "ruleParameter must contain only letters, numbers, _ or -"
+    regexp = "^[0-9]+$",
+    message = "ruleValue must contain only numbers"
 )
-private String ruleParameter;
+private String ruleValue;
