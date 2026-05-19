@@ -1,4 +1,10 @@
-import com.edwardjones.framework.rest.spring.client.SecurityInterceptor;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
-import java.util.ArrayList;
-import java.util.List;
+    @Bean
+    public org.springframework.boot.web.client.RestTemplateBuilderClientHttpRequestInterceptorCustomizer securityInterceptorCustomizer(
+            @org.springframework.beans.factory.annotation.Autowired(required = false) ClientHttpRequestInterceptor securityInterceptor) {
+        return builder -> {
+            if (securityInterceptor != null) {
+                builder.additionalInterceptors(securityInterceptor);
+            }
+        };
+    }
