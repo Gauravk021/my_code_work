@@ -1,10 +1,4 @@
-repositories {
-    maven {
-        url 'https://repository.edwardjones.com/artifactory/repo'
-    }
-
-    maven {
-        url 'http://repository.edwardjones.com:8181/artifactory/libs-release-local/'
-        allowInsecureProtocol = true
-    }
-}
+import com.edwardjones.framework.rest.spring.client.SecurityInterceptor;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
+import java.util.ArrayList;
+import java.util.List;
