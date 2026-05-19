@@ -1,5 +1,10 @@
-Build was failing due to an invalid Docker base image tag (jdk:17.0.18-98-rc) which was not available in the registry.
+repositories {
+    maven {
+        url 'https://repository.edwardjones.com/artifactory/repo'
+    }
 
-Identified the issue from CloudBees logs (“image not found”). Updated the Dockerfile to use a valid JDK image version (jdk:17.0.18).
-
-Post change, pushed the code and CI pipeline auto-triggered. Verified that the latest build (#14) completed successfully.
+    maven {
+        url 'http://repository.edwardjones.com:8181/artifactory/libs-release-local/'
+        allowInsecureProtocol = true
+    }
+}
