@@ -1,10 +1,9 @@
-import org.springframework.http.client.ClientHttpRequestInterceptor;
     @Bean
-    public org.springframework.boot.web.client.RestTemplateBuilderClientHttpRequestInterceptorCustomizer securityInterceptorCustomizer(
+    public org.springframework.boot.web.client.RestTemplateCustomizer securityInterceptorCustomizer(
             @org.springframework.beans.factory.annotation.Autowired(required = false) ClientHttpRequestInterceptor securityInterceptor) {
-        return builder -> {
+        return restTemplate -> {
             if (securityInterceptor != null) {
-                builder.additionalInterceptors(securityInterceptor);
+                restTemplate.getInterceptors().add(securityInterceptor);
             }
         };
     }
