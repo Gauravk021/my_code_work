@@ -1,9 +1,1 @@
-    @Bean
-    public org.springframework.boot.web.client.RestTemplateCustomizer securityInterceptorCustomizer(
-            @org.springframework.beans.factory.annotation.Autowired(required = false) ClientHttpRequestInterceptor securityInterceptor) {
-        return restTemplate -> {
-            if (securityInterceptor != null) {
-                restTemplate.getInterceptors().add(securityInterceptor);
-            }
-        };
-    }
+crt.authorization.base_url=https://crt-authorization-rest.apps2.devjones.com/
