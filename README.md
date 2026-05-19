@@ -1,1 +1,2 @@
-crt.authorization.base_url=https://crt-authorization-rest.apps2.devjones.com/
+crt.authorization.cache.principal.initial_size=128
+crt.authorization.cache.principal.maximum_size=4096
