@@ -1,4 +1,9 @@
-buyDetail.setLotID(
-        rollUpStringField(buyDetail.getLotID(), deltaBuyDetail.getLotID()));
-buyDetail.setTransactionID(
-        rollUpStringField(buyDetail.getTransactionID(), deltaBuyDetail.getTransactionID()));
+buyDetail.setProcessDate(
+        rollUpStringField(buyDetail.getProcessDate(),
+                deltaBuyDetail.getProcessDate()));
+buyDetail.setSettlementDate(
+        rollUpStringField(buyDetail.getSettlementDate(),
+                deltaBuyDetail.getSettlementDate()));
+buyDetail.setTradeDate(
+        rollUpStringField(buyDetail.getTradeDate(),
+                deltaBuyDetail.getTradeDate()));
