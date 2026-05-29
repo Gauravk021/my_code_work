@@ -1,4 +1,4 @@
-buyDetail.setGiftedDate(
+buyDetail.setWashSale30DayAdjustmentDate(
         rollUpStringField(
-                buyDetail.getGiftedDate(),
-                deltaBuyDetail.getGiftedDate()));
+                buyDetail.getWashSale30DayAdjustmentDate(),
+                deltaBuyDetail.getWashSale30DayAdjustmentDate()));
