@@ -1,9 +1,19 @@
-Implemented fix for Coverity CID 76205 in setCostBasisOnLot().
+// Common rollup logic for String fields.
+// Copies the delta value when current value is empty.
+// Marks the field as VARIOUS when current and delta values are both present but different.
+private String rollUpStringField(String currentValue, String deltaValue) {
+    if (StringUtils.isEmpty(currentValue) && StringUtils.isNotEmpty(deltaValue)) {
+        return deltaValue;
+    }
 
-The previous costed=false assignment was being overwritten by later cost basis calculation logic before use. Updated the logic to return false immediately when the vendor marks the lot as not costed.
+    if (StringUtils.isNotEmpty(currentValue)
+            && StringUtils.isNotEmpty(deltaValue)
+            && !currentValue.equals(deltaValue)) {
+        return TaxLotDataConstants.LIT_VARIOUS;
+    }
 
-Validation completed:
-- Local Gradle build passed
-- Jenkins/CloudBees pipeline passed
-- SonarQube Quality Gate passed
-- Latest build console search shows no occurrence of CID 76205 / UNUSED_VALUE
+    return currentValue;
+}
+
+buyDetail.setActivityDesc(
+        rollUpStringField(buyDetail.getActivityDesc(), deltaBuyDetail.getActivityDesc()));
