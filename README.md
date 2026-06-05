@@ -1,28 +1,13 @@
-Validation completed for DCR-21793.
+Hi [Lead Name],
 
-Debug analysis confirmed that when TLE returns error code 12048 (“ACCOUNT NOT ON PROFILE”), the error is mapped to NF (Not Found), which results in a TleAccountNotFoundException being thrown.
+I reviewed Dwayne’s test result and compared it with our testing.
 
-The exception flow was verified as follows:
+Our original test was done with account 28611427 using our tested parameter set, and we got 404 - Vendor Data not found, which confirmed that AccountNotFound is no longer getting converted to Vendor Maintenance Window.
 
-* TLE returned error code 12048.
-* Error code mapping resolved to NF (Not Found).
-* TleAccountNotFoundException was thrown.
-* Exception handling mapped the response to a Not Found response.
-* The Vendor Maintenance exception path was not executed.
+Dwayne tested the same account with a different parameter combination (sysId=COS, positionType=LONG, etc.) and got From Cache: AccountNotFound. I also tried the same parameter combination locally and got the same result.
 
-Swagger validation confirmed the following response:
+He also tested another account 18818437 with the same parameter combination and got a successful 200 response with actual data.
 
-HTTP Status: 404 Not Found
+So currently, the difference seems to be due to the input parameter combination and/or account data availability, not necessarily the DCR fix itself.
 
-Response:
-{
-“message”: “Vendor Data not found”
-}
-
-Note:
-“Vendor Data not found” is the existing application response for account-not-found scenarios in the vendor system. No changes were made to this mapping as part of this story.
-
-The purpose of this fix was to ensure that account-not-found scenarios are no longer incorrectly returned as “Vendor Maintenance Window” errors when the request is outside the vendor maintenance window.
-
-Result:
-Account-not-found scenarios now correctly return a 404 Not Found response with the existing “Vendor Data not found” message instead of being incorrectly returned as Vendor Maintenance Window errors.
+Can you please confirm which exact parameter set should be considered valid for DCR-21793 validation? Once confirmed, I can retest both account scenarios with the same inputs and update Jira/client accordingly.
