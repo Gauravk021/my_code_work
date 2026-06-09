@@ -1,13 +1,16 @@
-Hi [Lead Name],
+Update after cache-disabled local validation:
 
-I reviewed Dwayne’s test result and compared it with our testing.
+I disabled cache locally at code level and re-tested account 18818437 using the same request parameters. After cache was bypassed, the request went through the vendor path and executed getUnrealizedDataFromVendor(). The response showed numOfCallsToVendor = 1 and securities data was returned, so the HTTP 200 response is coming directly from vendor/TLE, not from cache.
 
-Our original test was done with account 28611427 using our tested parameter set, and we got 404 - Vendor Data not found, which confirmed that AccountNotFound is no longer getting converted to Vendor Maintenance Window.
+My understanding from the code/debugging is:
 
-Dwayne tested the same account with a different parameter combination (sysId=COS, positionType=LONG, etc.) and got From Cache: AccountNotFound. I also tried the same parameter combination locally and got the same result.
+* Vendor/TLE first returns either data or an error response.
+* If vendor returns valid data, the normal success path continues and API returns 200.
+* If vendor returns an Account Not Found/NF error, cbcommon maps it to TleAccountNotFoundException, which becomes 404 "Vendor Data not found".
+* isTLEOutageWindow() does not force every successful vendor response to become Vendor Maintenance. It is only used in the error-handling path when vendor returns an error that is not already handled as NF/AccountNotFound.
+* Therefore, forcing isTLEOutageWindow() to true helps reproduce maintenance behavior only for vendor error scenarios, not for successful data responses.
 
-He also tested another account 18818437 with the same parameter combination and got a successful 200 response with actual data.
+Current validation:
 
-So currently, the difference seems to be due to the input parameter combination and/or account data availability, not necessarily the DCR fix itself.
-
-Can you please confirm which exact parameter set should be considered valid for DCR-21793 validation? Once confirmed, I can retest both account scenarios with the same inputs and update Jira/client accordingly.
+* Invalid account 28611427 → vendor returned NF/account-not-found path → 404 "Vendor Data not found".
+* Valid account 18818437 with cache disabled → direct vendor call → vendor returned valid data → 200 response.
