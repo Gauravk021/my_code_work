@@ -1,7 +1,11 @@
-Fix Account Not Found handling to prevent Vendor Maintenance error from being returned incorrectly.
+Summary:
+- Updated cbcommon dependency containing DCR-21793 fix.
+- Verified locally using updated cbcommon snapshot.
+- Confirmed Account Not Found is no longer overridden by Vendor Maintenance handling.
+- Fixed unit test assertion failures.
+- Build successful.
 
 Testing:
-- Reproduced issue locally
-- Verified Account Not Found scenario
-- Reverted temporary outage window reproduction code
-- Build successful
+- Local validation completed
+- Unit tests passed
+- Swagger verification completed
