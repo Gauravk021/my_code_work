@@ -1,11 +1,1 @@
-Summary:
-- Updated cbcommon dependency containing DCR-21793 fix.
-- Verified locally using updated cbcommon snapshot.
-- Confirmed Account Not Found is no longer overridden by Vendor Maintenance handling.
-- Fixed unit test assertion failures.
-- Build successful.
-
-Testing:
-- Local validation completed
-- Unit tests passed
-- Swagger verification completed
+This assertion was changed because Date.toString() is environment/timezone dependent. Locally it fails because the Date string changes based on timezone. I used DateUtil.getDateAsString() to validate only the business date value in MM/dd/yyyy format.
