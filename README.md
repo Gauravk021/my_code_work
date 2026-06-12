@@ -1,1 +1,1 @@
-This assertion was changed because Date.toString() is environment/timezone dependent. Locally it fails because the Date string changes based on timezone. I used DateUtil.getDateAsString() to validate only the business date value in MM/dd/yyyy format.
+Since cos-cbcommon-tle is a shared library/JAR project, it does not have a Kubernetes/SDP deployment pipeline like cos-taxlotdata-rest. The CB Common pipeline only builds the project and publishes the updated cos-cbcommon-tle-1.3.3-SNAPSHOT.jar artifact to Artifactory.
