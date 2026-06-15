@@ -1,2 +1,3 @@
-sellDetail.setTradeDate(
-        rollUpStringField(sellDetail.getTradeDate(), deltaSellDetail.getTradeDate()));
+sellDetail.setClosingCostBasisMethod(
+        rollUpCostBasisMethod(sellDetail.getClosingCostBasisMethod(),
+                deltaSellDetail.getClosingCostBasisMethod()));
