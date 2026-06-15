@@ -1,3 +1,2 @@
-sellDetail.setClosingCostBasisMethod(
-        rollUpCostBasisMethod(sellDetail.getClosingCostBasisMethod(),
-                deltaSellDetail.getClosingCostBasisMethod()));
+sellDetail.setLotID(
+        rollUpStringField(sellDetail.getLotID(), deltaSellDetail.getLotID()));
