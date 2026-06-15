@@ -1,2 +1,2 @@
-sellDetail.setTransactionID(
-        rollUpStringField(sellDetail.getTransactionID(), deltaSellDetail.getTransactionID()));
+sellDetail.setProcessDate(
+        rollUpStringField(sellDetail.getProcessDate(), deltaSellDetail.getProcessDate()));
