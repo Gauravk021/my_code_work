@@ -1,1 +1,2 @@
-Since cos-cbcommon-tle is a shared library/JAR project, it does not have a Kubernetes/SDP deployment pipeline like cos-taxlotdata-rest. The CB Common pipeline only builds the project and publishes the updated cos-cbcommon-tle-1.3.3-SNAPSHOT.jar artifact to Artifactory.
+sellDetail.setTransactionID(
+        rollUpStringField(sellDetail.getTransactionID(), deltaSellDetail.getTransactionID()));
