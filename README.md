@@ -1,2 +1,2 @@
-sellDetail.setProcessDate(
-        rollUpStringField(sellDetail.getProcessDate(), deltaSellDetail.getProcessDate()));
+sellDetail.setTradeDate(
+        rollUpStringField(sellDetail.getTradeDate(), deltaSellDetail.getTradeDate()));
