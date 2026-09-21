@@ -1,24 +1,26 @@
-Hi Team,
+Review the PR comment and my current implementation before making any changes.
 
-I investigated this CTASK escalation and below are my observations:
+Reviewer concern:
+"RestTemplateCustomizer applies to every RestTemplate created via RestTemplateBuilder in the application context, not just the CRT client. cprCacheHttpFactory has its own interceptor/pool sizing/timeouts for unrelated HTTP clients and may cause unexpected socket exhaustion/pool connection refused errors in production under load. Is it okay to use cprCacheHttpFactory?"
 
-1. I checked my mobile pager notifications and did not receive any pager alert related to this CTASK.
-2. I verified my emails as well and could not find any notification associated with this CTASK.
-3. The CTASK closure was missed because no notification was received to indicate that action was required.
+Current implementation:
+I added a RestTemplateCustomizer that sets cprCacheHttpFactory as the request factory.
 
-I would also like to highlight a broader concern regarding the current support model.
+I confirmed that CRT AuthorizationClientImpl receives Spring RestTemplateBuilder and internally creates its RestTemplate using:
 
-* Team members are handling both development activities and operational activities such as incidents, CTASKs, and weekend on-call support.
-* Development work requires significant focus, analysis, troubleshooting, coding, testing, and delivery commitments. Some tasks may be completed quickly, while others can take several days depending on complexity.
-* In addition to regular weekday responsibilities, weekend night support coverage is also being handled by the same team members.
-* During weekend support, resources are expected to remain available throughout the night for incidents and operational activities, which already places an additional workload outside normal working days.
-* CTASKs can be assigned at different times and for different maintenance windows, making it difficult to track every activity manually when the expected pager notification is not received.
-* After completing a full work week and continuing with weekend overnight support responsibilities, maintaining continuous monitoring of laptops, emails, mobile devices, incidents, and CTASK activities becomes increasingly challenging.
-* The current model depends heavily on timely pager notifications. If notifications are not received, there is a higher possibility of activities being missed despite best efforts.
+this.restTemplate = restTemplateBuilder.build();
 
-For this specific CTASK, my investigation indicates that the miss occurred due to the absence of the expected pager notification and not due to a lack of attention to assigned responsibilities.
+Requirement:
+The connection/request factory configuration is needed for the CRT AuthorizationClient only. It must NOT modify unrelated RestTemplates such as cache-manager or other application HTTP clients.
 
-I also believe that the current balance between development work, incident management, CTASK activities, and weekend support should be reviewed. As the same limited team is managing all these responsibilities, there is an increased risk of similar misses in the future when notification mechanisms do not work as expected.
-
-Regards,
-Gaurav
+Please:
+1. Inspect the complete project and CRT authorization-client configuration/dependency.
+2. Find how CRTAuthorizationClient / AuthorizationClientImpl is created and whether the CRT library provides an official configuration mechanism, dedicated RestTemplateBuilder, request factory, timeout properties, or extension point.
+3. Determine whether my current RestTemplateCustomizer is global and could affect unrelated RestTemplates.
+4. If yes, replace it with the smallest safe implementation that applies the required HTTP/request-factory configuration ONLY to CRT.
+5. Do not change CRT library source code.
+6. Do not change existing unrelated RestTemplate configuration.
+7. Do not change business logic in RealizedDataService or UnrealizedDataService.
+8. Keep the existing CRT authorization behavior unchanged.
+9. Before editing files, explain exactly which files and lines you intend to change and why.
+10. Do NOT make any code changes until I approve the proposed solution.
